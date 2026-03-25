@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'NodeJS'
+        nodejs 'NodeJs'
     }
 
     stages {
@@ -16,23 +16,51 @@ pipeline {
 
         stage('Install') {
             steps {
-                sh 'npm install'
+                dir('Backend') {
+                    script {
+                        if (isUnix()) {
+                            sh 'npm ci || npm install'
+                        } else {
+                            bat 'npm ci || npm install'
+                        }
+                    }
+                }
+                dir('Frontend') {
+                    script {
+                        if (isUnix()) {
+                            sh 'npm ci || npm install'
+                        } else {
+                            bat 'npm ci || npm install'
+                        }
+                    }
+                }
             }
         }
 
         stage('Build') {
             steps {
-                sh 'npm run build'
+                dir('Frontend') {
+                    script {
+                        if (isUnix()) {
+                            sh 'npm run build'
+                        } else {
+                            bat 'npm run build'
+                        }
+                    }
+                }
             }
         }
 
         stage('Test') {
             steps {
-                sh 'npm test'
-            }
-            post {
-                always {
-                    junit 'junit.xml'
+                dir('Frontend') {
+                    script {
+                        if (isUnix()) {
+                            sh 'CI=true npm test -- --watchAll=false'
+                        } else {
+                            bat 'set CI=true&& npm test -- --watchAll=false'
+                        }
+                    }
                 }
             }
         }
