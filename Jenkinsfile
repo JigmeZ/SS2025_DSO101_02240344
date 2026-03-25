@@ -74,21 +74,5 @@ pipeline {
                 }
             }
         }
-
-        stage('Deploy') {
-            steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-creds') {
-                        // Build and push backend image
-                        def backendImage = docker.build('jigmeoli/be-todo:02240344', 'Backend')
-                        backendImage.push()
-
-                        // Build and push frontend image
-                        def frontendImage = docker.build('jigmeoli/fe-todo:02240344', 'Frontend')
-                        frontendImage.push()
-                    }
-                }
-            }
-        }
     }
 }
