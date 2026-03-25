@@ -1,16 +1,26 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs 'NodeJs'
-    }
-
     stages {
         stage('Checkout') {
             steps {
                 git branch: 'main',
                     url: 'https://github.com/JigmeZ/SS2025_DSO101_02240344.git',
                     credentialsId: 'github-creds'
+            }
+        }
+
+        stage('Verify Node Environment') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        sh 'which node && node -v && npm -v'
+                    } else {
+                        bat 'where node'
+                        bat 'node -v'
+                        bat 'npm -v'
+                    }
+                }
             }
         }
 
