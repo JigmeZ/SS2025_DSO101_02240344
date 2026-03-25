@@ -122,13 +122,18 @@ app.delete("/api/tasks/:id", async (req, res) => {
   }
 });
 
-initDb()
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`API listening on port ${PORT}`);
-    });
-  })
-  .catch((error) => {
+async function startServer() {
+  await initDb();
+  app.listen(PORT, () => {
+    console.log(`API listening on port ${PORT}`);
+  });
+}
+
+if (process.env.NODE_ENV !== "test") {
+  startServer().catch((error) => {
     console.error("Database initialization failed:", error.message);
     process.exit(1);
   });
+}
+
+module.exports = { app, initDb, pool, startServer };
