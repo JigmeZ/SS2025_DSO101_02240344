@@ -14,7 +14,7 @@ Project structure:
 
 ## 1) Environment Variables
 
-Never commit real `.env` files to git. Use the provided examples:
+Never commit real `.env` files to git. Use the provided examples: 
 
 - Backend template: `Backend/.env.example`
 - Frontend template: `Frontend/.env.example`
