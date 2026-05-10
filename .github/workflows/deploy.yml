@@ -17,7 +17,7 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/todo-app:latest ./backend
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/todo-app:latest ./Backend
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/todo-app:latest
 
       - name: Trigger Render Deployment
