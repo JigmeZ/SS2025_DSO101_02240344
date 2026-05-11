@@ -63,8 +63,44 @@ pipeline {
 
         stage('Test') {
             steps {
-                // Temporarily skipped - no tests written yet
-                echo 'Skipping tests'
+                dir('Backend') {
+                    script {
+                        if (isUnix()) {
+                            sh 'npm test'
+                        } else {
+                            bat 'npm test'
+                        }
+                    }
+                }
+                dir('Frontend') {
+                    script {
+                        if (isUnix()) {
+                            sh 'npm test -- --watchAll=false --passWithNoTests'
+                        } else {
+                            bat 'npm test -- --watchAll=false --passWithNoTests'
+                        }
+                    }
+                }
+            }
+            post {
+                always {
+                    junit '**/junit.xml'
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    echo 'Building Docker images...'
+                    if (isUnix()) {
+                        sh 'docker-compose build'
+                        sh 'docker-compose up -d'
+                    } else {
+                        bat 'docker-compose build'
+                        bat 'docker-compose up -d'
+                    }
+                }
             }
         }
     }
