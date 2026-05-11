@@ -97,7 +97,7 @@ Images successfully pushed to Docker Hub:
 
 **Problem:** Docker image for frontend was too large (~500MB+).
 
-## **Solution:** Implemented multi-stage build in Dockerfile - build in Node container, then copy only built artifacts to lightweight Nginx container. Reduced size to ~50MB.
+### **Solution:** Implemented multi-stage build in Dockerfile - build in Node container, then copy only built artifacts to lightweight Nginx container. Reduced size to ~50MB.
 
 
 # Assignment II: Automated Deployment with Blueprints
