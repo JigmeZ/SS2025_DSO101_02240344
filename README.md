@@ -1,12 +1,10 @@
 # DSO101 - To-Do List Web Application
 
-Repository: https://github.com/JigmeZ/SS2025_DSO101_02240344
-
 ---
 
 # Assignment I: Web Application Development & Docker Deployment
 
-## Part 1: Web Application Setup (Prerequisite)
+## Part 1: Web Application Setup 
 
 ### What I Did
 
@@ -30,28 +28,6 @@ I created a full-stack to-do application with:
 - Tasks table with columns: `id`, `title`, `description`, `completed`, `created_at`
 - Persistent storage for all tasks
 
-### Local Testing (Without Docker)
-
-### Local Testing (With Docker Compose)
-
-Tested full stack with Docker Compose:
-
-```bash
-docker compose up --build
-```
-
-This starts:
-
-- PostgreSQL database
-- Backend API server
-- Frontend React app
-
-App URLs:
-
-- Frontend: `http://localhost:3000`
-- Backend API: `http://localhost:5000/api/tasks`
-
----
 
 ## Part 2: Docker Containerization
 
@@ -122,6 +98,7 @@ Images successfully pushed to Docker Hub:
 **Problem:** Docker image for frontend was too large (~500MB+).
 
 ## **Solution:** Implemented multi-stage build in Dockerfile - build in Node container, then copy only built artifacts to lightweight Nginx container. Reduced size to ~50MB.
+
 
 # Assignment II: Automated Deployment with Blueprints
 
